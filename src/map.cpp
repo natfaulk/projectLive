@@ -1,7 +1,7 @@
 #include "map.hpp"
-#include "iostream"
+#include <iostream>
 
-static MapTiles map[MAP_WIDTH][MAP_HEIGHT] = {FLOOR};
+static MapTiles map[MAP_WIDTH][MAP_HEIGHT] = {{FLOOR}};
 
 // char** MAP_Get(void)
 // {
