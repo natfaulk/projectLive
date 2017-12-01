@@ -13,7 +13,8 @@ const char CHAR_SRC = 'S';
 const char CHAR_DEST = 'D';
 const char CHAR_CURRENT_POS = 'C';
 const char CHAR_SEARCHED = '*';
+const char CHAR_BESTPATH = '.';
 
-enum MapTiles {FLOOR, WALL, SRC, DEST, CUR_POS, SEARCHED};
+enum MapTiles {FLOOR, WALL, SRC, DEST, CUR_POS, SEARCHED, BEST};
 
 #endif /* end of include guard: CONSTANTS_HPP */

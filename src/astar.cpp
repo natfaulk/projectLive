@@ -58,6 +58,7 @@ void astar(Point* src, Point* dest)
   MAP_SetData(dest, DEST);
 
   bool destfound = false;
+  int destPos = -1;
 
   // int tc = 0;
 
@@ -69,6 +70,7 @@ void astar(Point* src, Point* dest)
       if ((allPoints.at(open.at(i)).x == dest->x) && (allPoints.at(open.at(i)).y == dest->y))
       {
         destfound = true;
+        destPos = open.at(i);
         break;
       }
     }
@@ -154,6 +156,14 @@ void astar(Point* src, Point* dest)
   if (destfound)
   {
     printf("found destination");
+  
+    int parent = allPoints.at(destPos).parent;
+    while (parent != -1) {
+      MAP_SetData(&allPoints.at(parent), BEST);
+      parent = allPoints.at(parent).parent;
+    }
+
+    MAP_SetData(src, SRC); // gets overwritten by searched squares otherwise 
   }
   else
   {

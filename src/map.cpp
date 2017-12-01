@@ -45,10 +45,10 @@ void MAP_Gen(void)
   map[9][10] = WALL;
   map[10][9] = WALL;
   map[11][9] = WALL;
-  map[9][4] = WALL;
-  map[9][5] = WALL;
-  map[10][5] = WALL;
-  map[9][8] = WALL;
+  // map[9][4] = WALL;
+  // map[9][5] = WALL;
+  // map[10][5] = WALL;
+  // map[9][8] = WALL;
   
   
 }
@@ -90,6 +90,11 @@ void MAP_Print(void)
         case SEARCHED:
         {
           std::cout << CHAR_SEARCHED;
+          break;
+        }
+        case BEST:
+        {
+          std::cout << CHAR_BESTPATH;
           break;
         }
       }
