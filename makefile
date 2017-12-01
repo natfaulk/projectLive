@@ -14,9 +14,7 @@ obj/%.cpp.o: src/%.cpp $(CPP_FILES) | $(OBJDIR)
 
 .PHONY: test clean
 
-run: build
-	.\bin\$(EXEC_NAME).exe
-
+ifeq ($(OS),Windows_NT)
 clean:
 	del /Q obj\*.* bin\*.*
 
@@ -25,3 +23,19 @@ $(OBJDIR):
 
 $(BINDIR):
 	mkdir $(BINDIR)
+
+run: build
+	.\bin\$(EXEC_NAME).exe
+else
+clean:
+	rm -rf obj/* bin/*
+
+$(OBJDIR):
+	mkdir -p $(OBJDIR)
+
+$(BINDIR):
+	mkdir -p $(BINDIR)
+
+run: build
+	./bin/$(EXEC_NAME)
+endif
