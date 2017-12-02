@@ -1,7 +1,12 @@
 #include "map.hpp"
+#include "utils.hpp"
+
 #include <iostream>
+#include <cstdlib> // for rand
 
 static MapTiles map[MAP_WIDTH][MAP_HEIGHT] = {{FLOOR}};
+
+void addOuterWalls(void);
 
 // char** MAP_Get(void)
 // {
@@ -29,6 +34,35 @@ bool MAP_CheckValidLocation(Point *p)
 
 void MAP_Gen(void)
 {
+  addOuterWalls();  
+
+  map[9][9] = WALL;
+  map[9][10] = WALL;
+  map[10][9] = WALL;
+  map[11][9] = WALL;
+  // map[9][4] = WALL;
+  // map[9][5] = WALL;
+  // map[10][5] = WALL;
+  // map[9][8] = WALL;
+}
+
+void MAP_GenRandom(void)
+{
+  addOuterWalls();
+
+  int numWalls = UTIL_RandBetween(MG_NUM_WALLS_MIN, MG_NUM_WALLS_MAX);
+  int xpos, ypos;
+
+  for (int i = 0; i < numWalls; i++)
+  {
+    xpos = UTIL_RandBetween(1, MAP_WIDTH - 2);
+    ypos = UTIL_RandBetween(1, MAP_HEIGHT - 2);
+    map[xpos][ypos] = WALL;
+  }
+}
+
+void addOuterWalls(void)
+{
   for (int i = 0; i < MAP_WIDTH; i++)
   {
     map[i][0] = WALL;
@@ -40,17 +74,6 @@ void MAP_Gen(void)
     map[0][i] = WALL;
     map[MAP_WIDTH - 1][i] = WALL;
   }
-
-  map[9][9] = WALL;
-  map[9][10] = WALL;
-  map[10][9] = WALL;
-  map[11][9] = WALL;
-  // map[9][4] = WALL;
-  // map[9][5] = WALL;
-  // map[10][5] = WALL;
-  // map[9][8] = WALL;
-  
-  
 }
 
 void MAP_Print(void)
