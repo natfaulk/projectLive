@@ -128,10 +128,10 @@ void astar(Point* src, Point* dest)
       {
         if (!MAP_CheckValidLocation(&adj[i])) printf("INVALID LOCATION!! x %f, y %f \r\n", adj[i].x, adj[i].y);
         int openPos = isInOpenList(&adj[i]);
+        adj[i].parent = current_p;
         int tempScore = calculateScore(&adj[i], src, dest);
         if (openPos == -1)
         {
-          adj[i].parent = current_p;
           adj[i].score = tempScore;
           allPoints.push_back(adj[i]);
           open.push_back(allPoints.size() - 1);
