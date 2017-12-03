@@ -2,15 +2,18 @@ CPP_FILES=$(wildcard src/*.cpp)
 CPP_OBJ_FILES:=$(patsubst src/%.cpp,obj/%.cpp.o,$(CPP_FILES))
 OBJDIR:=obj
 BINDIR:=bin
-EXEC_NAME:=astar
+CC_FLAGS=-c -Wall --std=c++11 -Iinc
+CC_FLAGS+= -I/usr/local/include -g
+LDFLAGS:= -L/usr/local/lib -F/Library/Frameworks -framework SFML -framework sfml-audio -framework sfml-system -framework sfml-window -framework sfml-graphics
+EXEC_NAME:=astar_sfml
 
 build: bin/$(EXEC_NAME)
 
 bin/$(EXEC_NAME): $(CPP_OBJ_FILES) | $(BINDIR)
-	g++ -o $@ $^
+	g++ -o $@ $^ $(LDFLAGS)
 
 obj/%.cpp.o: src/%.cpp $(CPP_FILES) | $(OBJDIR)
-	g++ $< -o $@ -c -Iinc -Wall --std=c++11 -g
+	g++ $< -o $@ $(CC_FLAGS)
 
 .PHONY: test clean
 
