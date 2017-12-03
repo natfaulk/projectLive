@@ -55,8 +55,8 @@ void MAP_GenRandom(void)
 
   for (int i = 0; i < numWalls; i++)
   {
-    xpos = UTIL_RandBetween(1, MAP_WIDTH - 2);
-    ypos = UTIL_RandBetween(1, MAP_HEIGHT - 2);
+    xpos = UTIL_RandBetween(1, MAP_WIDTH - 1);
+    ypos = UTIL_RandBetween(1, MAP_HEIGHT - 1);
     map[xpos][ypos] = WALL;
   }
 }
