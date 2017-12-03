@@ -85,6 +85,15 @@ void addOuterWalls(void)
     map[0][i] = WALL;
     map[MAP_WIDTH - 1][i] = WALL;
   }
+
+  // add walls behind the checkbox
+  for (int y = 0; y < 7; y++)
+  {
+    for (int x = 0; x < 55; x++)
+    {
+      map[x][y] = WALL;
+    }
+  }
 }
 
 void MAP_Draw(sf::RenderWindow &window)
