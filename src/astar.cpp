@@ -162,13 +162,13 @@ void astar(Point* src, Point* dest)
       MAP_SetData(&allPoints.at(parent), BEST);
       parent = allPoints.at(parent).parent;
     }
-
-    MAP_SetData(src, SRC); // gets overwritten by searched squares otherwise 
   }
   else
   {
     printf("couldnt find path");    
   }
+  
+  MAP_SetData(src, SRC); // gets overwritten by searched squares otherwise 
 }
 
 void ASTAR_PrintOpen(void)
