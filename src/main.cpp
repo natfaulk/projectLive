@@ -7,6 +7,10 @@
 #include "map.hpp"
 #include "utils.hpp"
 
+int frameCount = 0;
+const int FRAME_DIVIDER = 60 / 5;
+bool done = false;
+
 int main(int argc, char const *argv[]) {
   /* code */
   UTIL_RandSeed();
@@ -29,9 +33,13 @@ int main(int argc, char const *argv[]) {
 
   // MAP_Gen();
 
-  astar(&src, &dest);
+  // astar(&src, &dest);
   // ASTAR_PrintOpen();
-  MAP_Print();
+  // MAP_Print();
+
+  ASTAR_Begin(&src, &dest);
+  MAP_SetData(&src, SRC);
+  MAP_SetData(&dest, DEST);
 
   while (window.isOpen())
   {
@@ -41,20 +49,26 @@ int main(int argc, char const *argv[]) {
         if (event.type == sf::Event::Closed) window.close();
         if (event.type == sf::Event::KeyPressed) {
           if (event.key.code == sf::Keyboard::R) {
-              MAP_Clear();
-              MAP_GenRandom();
+            done = false;
+            MAP_Clear();
+            MAP_GenRandom();
 
-              int xpos = UTIL_RandBetween(1, MAP_WIDTH - 2);
-              int ypos = UTIL_RandBetween(1, MAP_HEIGHT - 2);
-              src = Point(xpos, ypos);
+            xpos = UTIL_RandBetween(1, MAP_WIDTH - 2);
+            ypos = UTIL_RandBetween(1, MAP_HEIGHT - 2);
+            src = Point(xpos, ypos);
 
-              xpos = UTIL_RandBetween(1, MAP_WIDTH - 2);
-              ypos = UTIL_RandBetween(1, MAP_HEIGHT - 2);
-              dest = Point(xpos, ypos);
+            xpos = UTIL_RandBetween(1, MAP_WIDTH - 2);
+            ypos = UTIL_RandBetween(1, MAP_HEIGHT - 2);
+            dest = Point(xpos, ypos);
 
-              // MAP_Gen();
+            ASTAR_Begin(&src, &dest);
+            MAP_SetData(&src, SRC);
+            MAP_SetData(&dest, DEST);
+          }
 
-              astar(&src, &dest);
+          if (event.key.code == sf::Keyboard::P) {
+            ASTAR_Test();
+            while(1);
           }
         }
         // if (event.type == sf::Event::MouseButtonPressed) {
@@ -63,8 +77,30 @@ int main(int argc, char const *argv[]) {
         // }
     }
 
-    MAP_Draw(window);
-    window.display();
+    if (frameCount++ >= FRAME_DIVIDER)
+    {
+      frameCount = 0;
+      if (!ASTAR_Step())
+      {
+        MAP_SetData(ASTAR_LatestSearched(), SEARCHED);
+      }
+      else if(!done)
+      {
+        Point nextPoint = ASTAR_PathNextPoint();
+        while(nextPoint.x >= 0)
+        {
+          MAP_SetData(&nextPoint, BEST);
+          nextPoint = ASTAR_PathNextPoint();
+        }
+        MAP_SetData(&src, SRC);
+        MAP_SetData(&dest, DEST);
+        done = true;
+      }
+
+      MAP_Draw(window);
+      window.display();
+    }
+
 
   }
 
