@@ -12,7 +12,7 @@ void MAP_SetData(Point* _p, MapTiles _d);
 bool MAP_CheckValidLocation(Point *p);
 void MAP_Gen(void);
 void MAP_GenRandom(void);
-void MAP_Print(void);
+// void MAP_Print(void);
 void MAP_Draw(sf::RenderWindow &window);
 void MAP_Clear(void);
 

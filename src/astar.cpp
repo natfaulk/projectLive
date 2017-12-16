@@ -1,6 +1,7 @@
 #include "astar.hpp"
 #include "constants.hpp"
 #include "map.hpp"
+#include "utils.hpp" // for Dirs
 
 #include <vector>
 #include <cmath> // for abs
@@ -33,8 +34,6 @@ static std::vector<int> latestPath;
 Point* _src;
 Point* _dest;
 Point latestSearched = Point(-1, -1);
-
-enum Dirs {UP, DOWN, LEFT, RIGHT};
 
 void ASTAR_Begin(Point* src, Point* dest)
 {

@@ -7,6 +7,7 @@
 #include "map.hpp"
 #include "utils.hpp"
 #include "checkbox.hpp"
+#include "moveable.hpp"
 
 int frameCount = 0;
 const int FRAME_DIVIDER = 60 / 10;
@@ -23,7 +24,7 @@ int main(int argc, char const *argv[]) {
     return 1;
   }
 
-  Checkbox testChk(5, 5, false, "Select for timelapse");
+  // Checkbox testChk(5, 5, false, "Select for timelapse");
 
   sf::RenderWindow window(sf::VideoMode(SCREEN_WIDTH, SCREEN_HEIGHT), WINDOW_TITLE);
   window.setFramerateLimit(60);
@@ -46,9 +47,11 @@ int main(int argc, char const *argv[]) {
   // ASTAR_PrintOpen();
   // MAP_Print();
 
-  ASTAR_Begin(&src, &dest);
-  MAP_SetData(&src, SRC);
-  MAP_SetData(&dest, DEST);
+  // ASTAR_Begin(&src, &dest);
+  // MAP_SetData(&src, SRC);
+  // MAP_SetData(&dest, DEST);
+
+  Moveable hero(10, 10);
 
   while (window.isOpen())
   {
@@ -61,72 +64,85 @@ int main(int argc, char const *argv[]) {
             done = false;
             MAP_Clear();
             MAP_GenRandom();
+            hero.draw();
 
-            xpos = UTIL_RandBetween(1, MAP_WIDTH - 2);
-            ypos = UTIL_RandBetween(1, MAP_HEIGHT - 2);
-            src = Point(xpos, ypos);
+            // xpos = UTIL_RandBetween(1, MAP_WIDTH - 2);
+            // ypos = UTIL_RandBetween(1, MAP_HEIGHT - 2);
+            // src = Point(xpos, ypos);
 
-            xpos = UTIL_RandBetween(1, MAP_WIDTH - 2);
-            ypos = UTIL_RandBetween(1, MAP_HEIGHT - 2);
-            dest = Point(xpos, ypos);
+            // xpos = UTIL_RandBetween(1, MAP_WIDTH - 2);
+            // ypos = UTIL_RandBetween(1, MAP_HEIGHT - 2);
+            // dest = Point(xpos, ypos);
 
-            ASTAR_Begin(&src, &dest);
-            MAP_SetData(&src, SRC);
-            MAP_SetData(&dest, DEST);
+            // ASTAR_Begin(&src, &dest);
+            // MAP_SetData(&src, SRC);
+            // MAP_SetData(&dest, DEST);
           }
-
-          if (event.key.code == sf::Keyboard::P) {
-            ASTAR_Test();
-            while(1);
+          else if (event.key.code == sf::Keyboard::Up) {
+            hero.move(UP);
+          }
+          else if (event.key.code == sf::Keyboard::Down) {
+            hero.move(DOWN);
+          }
+          else if (event.key.code == sf::Keyboard::Left) {
+            hero.move(LEFT);
+          }
+          else if (event.key.code == sf::Keyboard::Right) {
+            hero.move(RIGHT);
           }
         }
+        
         if (event.type == sf::Event::MouseButtonPressed) {
-          sf::Vector2i mousePosition = sf::Mouse::getPosition(window);
-          if (testChk.isMouseInside(mousePosition.x, mousePosition.y)) testChk.onClick();
+          // sf::Vector2i mousePosition = sf::Mouse::getPosition(window);
+          // if (testChk.isMouseInside(mousePosition.x, mousePosition.y)) testChk.onClick();
         }
     }
 
-    if (!testChk.value() && !done)
-    {
-      while (!ASTAR_Step())
-      {
-        MAP_SetData(ASTAR_LatestSearched(), SEARCHED);
-      }
+    // if (!testChk.value() && !done)
+    // {
+    //   while (!ASTAR_Step())
+    //   {
+    //     MAP_SetData(ASTAR_LatestSearched(), SEARCHED);
+    //   }
 
-      Point nextPoint = ASTAR_PathNextPoint();
-      while(nextPoint.x >= 0)
-      {
-        MAP_SetData(&nextPoint, BEST);
-        nextPoint = ASTAR_PathNextPoint();
-      }
-      MAP_SetData(&src, SRC);
-      MAP_SetData(&dest, DEST);
-      done = true;
-    }
-    else if (frameCount++ >= FRAME_DIVIDER)
-    {
-      frameCount = 0;
-      if (!ASTAR_Step())
-      {
-        MAP_SetData(ASTAR_LatestSearched(), SEARCHED);
-      }
-      else if(!done)
-      {
-        Point nextPoint = ASTAR_PathNextPoint();
-        while(nextPoint.x >= 0)
-        {
-          MAP_SetData(&nextPoint, BEST);
-          nextPoint = ASTAR_PathNextPoint();
-        }
-        MAP_SetData(&src, SRC);
-        MAP_SetData(&dest, DEST);
-        done = true;
-      }
+    //   Point nextPoint = ASTAR_PathNextPoint();
+    //   while(nextPoint.x >= 0)
+    //   {
+    //     MAP_SetData(&nextPoint, BEST);
+    //     nextPoint = ASTAR_PathNextPoint();
+    //   }
+    //   MAP_SetData(&src, SRC);
+    //   MAP_SetData(&dest, DEST);
+    //   done = true;
+    // }
+    // else if (frameCount++ >= FRAME_DIVIDER)
+    // {
+    //   frameCount = 0;
+    //   if (!ASTAR_Step())
+    //   {
+    //     MAP_SetData(ASTAR_LatestSearched(), SEARCHED);
+    //   }
+    //   else if(!done)
+    //   {
+    //     Point nextPoint = ASTAR_PathNextPoint();
+    //     while(nextPoint.x >= 0)
+    //     {
+    //       MAP_SetData(&nextPoint, BEST);
+    //       nextPoint = ASTAR_PathNextPoint();
+    //     }
+    //     MAP_SetData(&src, SRC);
+    //     MAP_SetData(&dest, DEST);
+    //     done = true;
+    //   }
 
-      MAP_Draw(window);
-      testChk.draw(window, font);
-      window.display();
-    }
+    //   MAP_Draw(window);
+    //   testChk.draw(window, font);
+    //   window.display();
+    // }
+
+    MAP_Draw(window);
+    // testChk.draw(window, font);
+    window.display();
 
 
   }

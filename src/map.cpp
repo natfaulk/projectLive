@@ -86,14 +86,14 @@ void addOuterWalls(void)
     map[MAP_WIDTH - 1][i] = WALL;
   }
 
-  // add walls behind the checkbox
-  for (int y = 0; y < 7; y++)
-  {
-    for (int x = 0; x < 55; x++)
-    {
-      map[x][y] = WALL;
-    }
-  }
+  // // add walls behind the checkbox
+  // for (int y = 0; y < 7; y++)
+  // {
+  //   for (int x = 0; x < 55; x++)
+  //   {
+  //     map[x][y] = WALL;
+  //   }
+  // }
 }
 
 void MAP_Draw(sf::RenderWindow &window)
@@ -111,6 +111,7 @@ void MAP_Draw(sf::RenderWindow &window)
       else if (map[x][y] == CUR_POS)rectangle.setFillColor(CURRENT_POS_COLOR);
       else if (map[x][y] == SEARCHED)rectangle.setFillColor(SEARCHED_COLOR);
       else if (map[x][y] == BEST)rectangle.setFillColor(BESTPATH_COLOR);
+      else if (map[x][y] == MOVEABLE)rectangle.setFillColor(MOVEABLE_COLOR);
       
       rectangle.setPosition(sf::Vector2f(x * TILE_SIZE, y * TILE_SIZE));
       window.draw(rectangle);
@@ -118,52 +119,52 @@ void MAP_Draw(sf::RenderWindow &window)
   }
 }
 
-void MAP_Print(void)
-{
-  std::cout << "\r\n";
-  for (int y = 0; y < MAP_HEIGHT; y++)
-  {
-    for (int x = 0; x < MAP_WIDTH; x++)
-    {
-      switch (map[x][y])
-      {
-        case FLOOR:
-        {
-          std::cout << CHAR_FLOOR;
-          break;
-        }
-        case WALL:
-        {
-          std::cout << CHAR_WALL;
-          break;
-        }
-        case SRC:
-        {
-          std::cout << CHAR_SRC;
-          break;
-        }
-        case DEST:
-        {
-          std::cout << CHAR_DEST;
-          break;
-        }
-        case CUR_POS:
-        {
-          std::cout << CHAR_CURRENT_POS;
-          break;
-        }
-        case SEARCHED:
-        {
-          std::cout << CHAR_SEARCHED;
-          break;
-        }
-        case BEST:
-        {
-          std::cout << CHAR_BESTPATH;
-          break;
-        }
-      }
-    }
-    std::cout << "\r\n";  
-  }
-}
+// void MAP_Print(void)
+// {
+//   std::cout << "\r\n";
+//   for (int y = 0; y < MAP_HEIGHT; y++)
+//   {
+//     for (int x = 0; x < MAP_WIDTH; x++)
+//     {
+//       switch (map[x][y])
+//       {
+//         case FLOOR:
+//         {
+//           std::cout << CHAR_FLOOR;
+//           break;
+//         }
+//         case WALL:
+//         {
+//           std::cout << CHAR_WALL;
+//           break;
+//         }
+//         case SRC:
+//         {
+//           std::cout << CHAR_SRC;
+//           break;
+//         }
+//         case DEST:
+//         {
+//           std::cout << CHAR_DEST;
+//           break;
+//         }
+//         case CUR_POS:
+//         {
+//           std::cout << CHAR_CURRENT_POS;
+//           break;
+//         }
+//         case SEARCHED:
+//         {
+//           std::cout << CHAR_SEARCHED;
+//           break;
+//         }
+//         case BEST:
+//         {
+//           std::cout << CHAR_BESTPATH;
+//           break;
+//         }
+//       }
+//     }
+//     std::cout << "\r\n";  
+//   }
+// }
