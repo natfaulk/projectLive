@@ -347,7 +347,7 @@ void ASTAR_PrintOpen(void)
 {
   for (std::size_t i = 0 ; i < open.size(); i++)
   {
-    printf("Open list %lu: x %f, y %f", i, allPoints.at(open.at(i)).x, allPoints.at(open.at(i)).y);
+    printf("Open list %u: x %f, y %f", i, allPoints.at(open.at(i)).x, allPoints.at(open.at(i)).y);
   }
 }
 
@@ -355,7 +355,7 @@ void ASTAR_PrintClosed(void)
 {
   for (std::size_t i = 0 ; i < closed.size(); i++)
   {
-    printf("Closed list %lu: x %f, y %f", i, allPoints.at(closed.at(i)).x, allPoints.at(closed.at(i)).y);
+    printf("Closed list %u: x %f, y %f", i, allPoints.at(closed.at(i)).x, allPoints.at(closed.at(i)).y);
   }
 }
 
