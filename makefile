@@ -3,8 +3,13 @@ CPP_OBJ_FILES:=$(patsubst src/%.cpp,obj/%.cpp.o,$(CPP_FILES))
 OBJDIR:=obj
 BINDIR:=bin
 CC_FLAGS=-c -Wall --std=c++11 -Iinc
-CC_FLAGS+= -I/usr/local/include -g
-LDFLAGS:= -L/usr/local/lib -F/Library/Frameworks -framework SFML -framework sfml-audio -framework sfml-system -framework sfml-window -framework sfml-graphics
+ifeq ($(OS),Windows_NT)
+	CC_FLAGS+= -IC:\libs\sfml\SFML-2.4.2\include -DSFML_STATIC
+	LDFLAGS:= -LC:\libs\sfml\SFML-2.4.2\lib -lsfml-graphics-s -lsfml-window-s -lsfml-system-s -lsfml-audio-s -lopengl32 -lwinmm -lgdi32 -ljpeg -lfreetype
+else
+	CC_FLAGS+= -I/usr/local/include -g
+	LDFLAGS:= -L/usr/local/lib -F/Library/Frameworks -framework SFML -framework sfml-audio -framework sfml-system -framework sfml-window -framework sfml-graphics
+endif
 EXEC_NAME:=astar_sfml
 
 build: bin/$(EXEC_NAME)

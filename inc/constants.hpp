@@ -24,7 +24,7 @@ enum MapTiles {FLOOR, WALL, SRC, DEST, CUR_POS, SEARCHED, BEST, MOVEABLE};
 const int TILE_SIZE = 25;
 const int SCREEN_WIDTH = MAP_WIDTH * TILE_SIZE;
 const int SCREEN_HEIGHT= MAP_HEIGHT * TILE_SIZE;
-static const char* WINDOW_TITLE = "A STAR SFML";
+const char* const WINDOW_TITLE = "A STAR SFML";
 
 const sf::Color FLOOR_COLOR = sf::Color::White;
 const sf::Color WALL_COLOR = sf::Color::Red;
