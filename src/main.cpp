@@ -11,7 +11,7 @@
 #include "person.hpp"
 
 int frameCount = 0;
-const int FRAME_DIVIDER = 60 / 10;
+// const int FRAME_DIVIDER = 60 / 10;
 bool done = false;
 
 int main(int argc, char const *argv[]) {
