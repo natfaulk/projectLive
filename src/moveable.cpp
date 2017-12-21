@@ -1,5 +1,8 @@
 #include "moveable.hpp"
 #include "map.hpp"
+#include "utils.hpp"
+
+#include <climits> // for INT_MAX
 
 Moveable::Moveable(): Point(0, 0)
 {
@@ -66,8 +69,10 @@ bool Moveable::nextTo(MapTiles tile)
 
 Point Moveable::getNearestTile(MapTiles tile)
 {
-  // TODO: proper implementation
-  // currently just gets the first in the array
+  // TODO: Improve the implementation
+  // searches through every map square then finds the closest point to the character
+  int minDist = INT_MAX;
+  Point closest(-1, -1);
   Point tempPoint(0, 0);
   for (int y = 1; y < MAP_HEIGHT - 1; y++)
   {
@@ -77,18 +82,81 @@ Point Moveable::getNearestTile(MapTiles tile)
       tempPoint.y = y;
       if (MAP_GetData(&tempPoint) == tile)
       {
+        int tempDist;
         tempPoint.y -= 1;
-        if (MAP_GetData(&tempPoint) == FLOOR) return tempPoint;
+        if (MAP_GetData(&tempPoint) == FLOOR)
+        {
+          tempDist = UTIL_ManhattenDist(&tempPoint, this);
+          if (tempDist < minDist)
+          {
+            minDist = tempDist;
+            closest.x = tempPoint.x;
+            closest.y = tempPoint.y;
+          }
+        }
         tempPoint.y += 2;
-        if (MAP_GetData(&tempPoint) == FLOOR) return tempPoint;
+        if (MAP_GetData(&tempPoint) == FLOOR)
+        {
+          tempDist = UTIL_ManhattenDist(&tempPoint, this);
+          if (tempDist < minDist)
+          {
+            minDist = tempDist;
+            closest.x = tempPoint.x;
+            closest.y = tempPoint.y;
+          }
+        }
         tempPoint.y -= 1;
         tempPoint.x -= 1;
-        if (MAP_GetData(&tempPoint) == FLOOR) return tempPoint;
+        if (MAP_GetData(&tempPoint) == FLOOR)
+        {
+          tempDist = UTIL_ManhattenDist(&tempPoint, this);
+          if (tempDist < minDist)
+          {
+            minDist = tempDist;
+            closest.x = tempPoint.x;
+            closest.y = tempPoint.y;
+          }
+        }
         tempPoint.x += 2;  
-        if (MAP_GetData(&tempPoint) == FLOOR) return tempPoint;
+        if (MAP_GetData(&tempPoint) == FLOOR)
+        {
+          tempDist = UTIL_ManhattenDist(&tempPoint, this);
+          if (tempDist < minDist)
+          {
+            minDist = tempDist;
+            closest.x = tempPoint.x;
+            closest.y = tempPoint.y;
+          }
+        }
       }
     }
   }
 
-  return Point(-1, -1);
+  return closest;
+
+  // // TODO: proper implementation
+  // // currently just gets the first in the array
+  // Point tempPoint(0, 0);
+  // for (int y = 1; y < MAP_HEIGHT - 1; y++)
+  // {
+  //   for (int x = 1; x < MAP_WIDTH - 1; x++)
+  //   {
+  //     tempPoint.x = x;
+  //     tempPoint.y = y;
+  //     if (MAP_GetData(&tempPoint) == tile)
+  //     {
+  //       tempPoint.y -= 1;
+  //       if (MAP_GetData(&tempPoint) == FLOOR) return tempPoint;
+  //       tempPoint.y += 2;
+  //       if (MAP_GetData(&tempPoint) == FLOOR) return tempPoint;
+  //       tempPoint.y -= 1;
+  //       tempPoint.x -= 1;
+  //       if (MAP_GetData(&tempPoint) == FLOOR) return tempPoint;
+  //       tempPoint.x += 2;  
+  //       if (MAP_GetData(&tempPoint) == FLOOR) return tempPoint;
+  //     }
+  //   }
+  // }
+
+  // return Point(-1, -1);
 }

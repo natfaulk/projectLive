@@ -4,7 +4,6 @@
 #include "utils.hpp" // for Dirs
 
 #include <vector>
-#include <cmath> // for abs
 
 // #include <cstdio>
 #include <iostream>
@@ -18,7 +17,6 @@ public:
   int parent;
 };
 
-int getManhattenDist(Point* src, Point* dest);
 int isInClosedList(Point_score *_p);
 int isInOpenList(Point_score *_p);
 int calculateScore(Point_score *_p, Point *src, Point *dest);
@@ -358,11 +356,6 @@ void ASTAR_PrintClosed(void)
   }
 }
 
-int getManhattenDist(Point* src, Point* dest)
-{
-  return std::abs(src->x - dest->x) + std::abs(src->y - dest->y);
-}
-
 int isInClosedList(Point_score *_p)
 {
   for (std::size_t i = 0 ; i < closed.size(); i++)
@@ -390,7 +383,7 @@ int calculateScore(Point_score *_p, Point *src, Point *dest)
     parent = allPoints.at(parent).parent;
   }
   // return count;
-  return count + 1.5 * getManhattenDist(_p, dest);
+  return count + 1.5 * UTIL_ManhattenDist(_p, dest);
 }
 
 Point_score::Point_score(): Point(0, 0), score(0), parent(-1)

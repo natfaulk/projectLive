@@ -63,7 +63,7 @@ void Person::tick(void)
     if (drink < 950 && currentAction == WAIT)
     {
       currentAction = TO_WATER;
-      Point tempDest((MAP_WIDTH / 2) - 2, y);
+      Point tempDest = getNearestTile(WATER);
       ASTAR_Begin(this, &tempDest);
       while (!ASTAR_Step());
     // #ifdef PERSON_DEBUG
