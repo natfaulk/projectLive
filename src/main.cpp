@@ -8,6 +8,7 @@
 #include "utils.hpp"
 #include "checkbox.hpp"
 #include "moveable.hpp"
+#include "person.hpp"
 
 int frameCount = 0;
 const int FRAME_DIVIDER = 60 / 10;
@@ -51,7 +52,7 @@ int main(int argc, char const *argv[]) {
   // MAP_SetData(&src, SRC);
   // MAP_SetData(&dest, DEST);
 
-  Moveable hero(10, 10);
+  Person hero(10, 10);
 
   while (window.isOpen())
   {
@@ -64,6 +65,8 @@ int main(int argc, char const *argv[]) {
             done = false;
             MAP_Clear();
             MAP_GenRandom();
+            MAP_SetData(&hero, WALL);
+            hero.setPos(10, 10);
             hero.draw();
 
             // xpos = UTIL_RandBetween(1, MAP_WIDTH - 2);
@@ -97,6 +100,8 @@ int main(int argc, char const *argv[]) {
           // if (testChk.isMouseInside(mousePosition.x, mousePosition.y)) testChk.onClick();
         }
     }
+
+    hero.tick();
 
     // if (!testChk.value() && !done)
     // {

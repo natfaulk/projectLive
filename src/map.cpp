@@ -59,6 +59,13 @@ void MAP_GenRandom(void)
     ypos = UTIL_RandBetween(1, MAP_HEIGHT - 1);
     map[xpos][ypos] = WALL;
   }
+
+  // add some water
+  for (int i = 1; i < MAP_HEIGHT - 1; i++)
+  {
+    map[MAP_WIDTH / 2][i] = WATER;
+    map[(MAP_WIDTH / 2) - 1][i] = WATER;
+  }
 }
 
 void MAP_Clear(void)

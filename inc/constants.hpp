@@ -17,7 +17,7 @@ const char CHAR_CURRENT_POS = 'C';
 const char CHAR_SEARCHED = '*';
 const char CHAR_BESTPATH = '.';
 
-enum MapTiles {FLOOR, WALL, SRC, DEST, CUR_POS, SEARCHED, BEST, MOVEABLE, MAP_TILES_LEN};
+enum MapTiles {FLOOR, WALL, SRC, DEST, CUR_POS, SEARCHED, BEST, MOVEABLE, WATER, MAP_TILES_LEN};
 
 // ----------------------------------------------------------------------------
 // SFML Graphics
@@ -34,7 +34,8 @@ const sf::Color DEST_COLOR = sf::Color::Blue;
 const sf::Color CURRENT_POS_COLOR = sf::Color::Black;
 const sf::Color SEARCHED_COLOR = sf::Color(150, 150, 150);
 const sf::Color BESTPATH_COLOR = sf::Color::Black;
-const sf::Color MOVEABLE_COLOR = sf::Color::Blue;
+const sf::Color MOVEABLE_COLOR = sf::Color::Black;
+const sf::Color WATER_COLOR = sf::Color::Blue;
 
 const sf::Color* const MapTileColors[MAP_TILES_LEN] =
 {
@@ -46,6 +47,7 @@ const sf::Color* const MapTileColors[MAP_TILES_LEN] =
   , &SEARCHED_COLOR
   , &BESTPATH_COLOR
   , &MOVEABLE_COLOR
+  , &WATER_COLOR
 };
 
 // ----------------------------------------------------------------------------
