@@ -1,9 +1,10 @@
 #ifndef CONSTANTS_HPP
 #define CONSTANTS_HPP
 
-const int MAP_WIDTH = 100;
-const int MAP_HEIGHT = 50;
 #include <SFML/Graphics/Color.hpp>
+
+const int MAP_WIDTH = 65;
+const int MAP_HEIGHT = 40;
 
 // ----------------------------------------------------------------------------
 // Graphics
@@ -16,7 +17,7 @@ const char CHAR_CURRENT_POS = 'C';
 const char CHAR_SEARCHED = '*';
 const char CHAR_BESTPATH = '.';
 
-enum MapTiles {FLOOR, WALL, SRC, DEST, CUR_POS, SEARCHED, BEST, MOVEABLE};
+enum MapTiles {FLOOR, WALL, SRC, DEST, CUR_POS, SEARCHED, BEST, MOVEABLE, MAP_TILES_LEN};
 
 // ----------------------------------------------------------------------------
 // SFML Graphics
@@ -34,6 +35,18 @@ const sf::Color CURRENT_POS_COLOR = sf::Color::Black;
 const sf::Color SEARCHED_COLOR = sf::Color(150, 150, 150);
 const sf::Color BESTPATH_COLOR = sf::Color::Black;
 const sf::Color MOVEABLE_COLOR = sf::Color::Blue;
+
+const sf::Color* const MapTileColors[MAP_TILES_LEN] =
+{
+  &FLOOR_COLOR
+  , &WALL_COLOR
+  , &SRC_COLOR
+  , &DEST_COLOR
+  , &CURRENT_POS_COLOR
+  , &SEARCHED_COLOR
+  , &BESTPATH_COLOR
+  , &MOVEABLE_COLOR
+};
 
 // ----------------------------------------------------------------------------
 // Mapgen

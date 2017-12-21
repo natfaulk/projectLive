@@ -103,16 +103,7 @@ void MAP_Draw(sf::RenderWindow &window)
     for (int x = 0; x < MAP_WIDTH; x++)
     {
       sf::RectangleShape rectangle(sf::Vector2f(TILE_SIZE, TILE_SIZE));
-      
-      if (map[x][y] == FLOOR)rectangle.setFillColor(FLOOR_COLOR);
-      else if (map[x][y] == WALL)rectangle.setFillColor(WALL_COLOR);
-      else if (map[x][y] == SRC)rectangle.setFillColor(SRC_COLOR);
-      else if (map[x][y] == DEST)rectangle.setFillColor(DEST_COLOR);
-      else if (map[x][y] == CUR_POS)rectangle.setFillColor(CURRENT_POS_COLOR);
-      else if (map[x][y] == SEARCHED)rectangle.setFillColor(SEARCHED_COLOR);
-      else if (map[x][y] == BEST)rectangle.setFillColor(BESTPATH_COLOR);
-      else if (map[x][y] == MOVEABLE)rectangle.setFillColor(MOVEABLE_COLOR);
-      
+      rectangle.setFillColor(* MapTileColors[map[x][y]]);
       rectangle.setPosition(sf::Vector2f(x * TILE_SIZE, y * TILE_SIZE));
       window.draw(rectangle);
     }
