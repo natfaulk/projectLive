@@ -3,6 +3,7 @@
 
 #include "point.hpp"
 #include "utils.hpp" // for Dirs
+#include "constants.hpp" // for map tiles
 
 class Moveable: public Point {
 public:
@@ -12,6 +13,8 @@ public:
   Point getPos(void);
   void draw(void);
   void move(Dirs _dir);
+  bool nextTo(MapTiles tile);
+  Point getNearestTile(MapTiles tile);
 private:
 
 };

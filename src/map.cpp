@@ -18,6 +18,17 @@ MapTiles MAP_GetData(Point* _p)
   return map[int(_p->x)][int(_p->y)];
 }
 
+// can walk through it
+bool MAP_IsPassable(Point* _p)
+{
+  MapTiles temp = map[int(_p->x)][int(_p->y)];
+  return (temp != WALL) 
+  && (temp != WATER)
+  && (temp != FOOD)
+  && (temp != BED)
+  ;
+}
+
 void MAP_SetData(Point* _p, MapTiles _d)
 {
   map[int(_p->x)][int(_p->y)] = _d;
@@ -66,6 +77,24 @@ void MAP_GenRandom(void)
     map[MAP_WIDTH / 2][i] = WATER;
     map[(MAP_WIDTH / 2) - 1][i] = WATER;
   }
+
+  // add some food
+  for (int i = 0; i < 10; i ++)
+  {
+    xpos = UTIL_RandBetween(1, MAP_WIDTH - 1);
+    ypos = UTIL_RandBetween(1, MAP_HEIGHT - 1);
+    map[xpos][ypos] = FOOD;
+  }
+
+  // add a bridge
+  map[MAP_WIDTH / 2][MAP_HEIGHT / 2] = FLOOR;
+  map[(MAP_WIDTH / 2) - 1][MAP_HEIGHT / 2] = FLOOR;
+
+  // add a bed
+  xpos = UTIL_RandBetween(1, MAP_WIDTH - 1);
+  ypos = UTIL_RandBetween(1, MAP_HEIGHT - 1);
+  map[xpos][ypos] = BED;
+
 }
 
 void MAP_Clear(void)

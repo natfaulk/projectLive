@@ -10,7 +10,7 @@ public:
   Person(int _x, int _y);
   void tick(void);
 
-  enum Actions {WAIT, TO_WATER};
+  enum Actions {WAIT, TO_WATER, TO_FOOD, TO_BED};
 private:
   void init(void);
   // needs

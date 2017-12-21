@@ -8,6 +8,7 @@
 
 // char** MAP_Get(void);
 MapTiles MAP_GetData(Point* _p);
+bool MAP_IsPassable(Point* _p);
 void MAP_SetData(Point* _p, MapTiles _d);
 bool MAP_CheckValidLocation(Point *p);
 void MAP_Gen(void);

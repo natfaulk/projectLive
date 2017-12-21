@@ -1,5 +1,4 @@
 #include "moveable.hpp"
-#include "constants.hpp"
 #include "map.hpp"
 
 Moveable::Moveable(): Point(0, 0)
@@ -49,4 +48,47 @@ void Moveable::move(Dirs _dir)
   }
 
   this->draw();
+}
+
+bool Moveable::nextTo(MapTiles tile)
+{
+  Point tempNeighbours(x, y-1);
+  if (MAP_GetData(&tempNeighbours) == tile) return true;
+  tempNeighbours.y += 2;
+  if (MAP_GetData(&tempNeighbours) == tile) return true;
+  tempNeighbours.y -= 1;
+  tempNeighbours.x -= 1;
+  if (MAP_GetData(&tempNeighbours) == tile) return true;
+  tempNeighbours.x += 2;  
+  if (MAP_GetData(&tempNeighbours) == tile) return true;
+  return false;
+}
+
+Point Moveable::getNearestTile(MapTiles tile)
+{
+  // TODO: proper implementation
+  // currently just gets the first in the array
+  Point tempPoint(0, 0);
+  for (int y = 1; y < MAP_HEIGHT - 1; y++)
+  {
+    for (int x = 1; x < MAP_WIDTH - 1; x++)
+    {
+      tempPoint.x = x;
+      tempPoint.y = y;
+      if (MAP_GetData(&tempPoint) == tile)
+      {
+        tempPoint.y -= 1;
+        if (MAP_GetData(&tempPoint) == FLOOR) return tempPoint;
+        tempPoint.y += 2;
+        if (MAP_GetData(&tempPoint) == FLOOR) return tempPoint;
+        tempPoint.y -= 1;
+        tempPoint.x -= 1;
+        if (MAP_GetData(&tempPoint) == FLOOR) return tempPoint;
+        tempPoint.x += 2;  
+        if (MAP_GetData(&tempPoint) == FLOOR) return tempPoint;
+      }
+    }
+  }
+
+  return Point(-1, -1);
 }

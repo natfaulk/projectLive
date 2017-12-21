@@ -17,7 +17,23 @@ const char CHAR_CURRENT_POS = 'C';
 const char CHAR_SEARCHED = '*';
 const char CHAR_BESTPATH = '.';
 
-enum MapTiles {FLOOR, WALL, SRC, DEST, CUR_POS, SEARCHED, BEST, MOVEABLE, WATER, MAP_TILES_LEN};
+enum MapTiles {
+  FLOOR
+  , WALL
+  , SRC
+  , DEST
+  , CUR_POS
+  , SEARCHED
+  , BEST
+  , MOVEABLE
+  , WATER
+  , FOOD
+  , BED
+
+  // -------------------------
+  // new items above this line
+  , MAP_TILES_LEN
+};
 
 // ----------------------------------------------------------------------------
 // SFML Graphics
@@ -36,6 +52,8 @@ const sf::Color SEARCHED_COLOR = sf::Color(150, 150, 150);
 const sf::Color BESTPATH_COLOR = sf::Color::Black;
 const sf::Color MOVEABLE_COLOR = sf::Color::Black;
 const sf::Color WATER_COLOR = sf::Color::Blue;
+const sf::Color FOOD_COLOR = sf::Color(0x9e, 0x66, 0x06);
+const sf::Color BED_COLOR = sf::Color(0x8b, 0x07, 0xb7);
 
 const sf::Color* const MapTileColors[MAP_TILES_LEN] =
 {
@@ -48,12 +66,14 @@ const sf::Color* const MapTileColors[MAP_TILES_LEN] =
   , &BESTPATH_COLOR
   , &MOVEABLE_COLOR
   , &WATER_COLOR
+  , &FOOD_COLOR
+  , &BED_COLOR
 };
 
 // ----------------------------------------------------------------------------
 // Mapgen
 // ----------------------------------------------------------------------------
 const int MG_NUM_WALLS_MIN = 10;
-const int MG_NUM_WALLS_MAX = (MAP_WIDTH - 2) * (MAP_HEIGHT - 2) * 0.5;
+const int MG_NUM_WALLS_MAX = (MAP_WIDTH - 2) * (MAP_HEIGHT - 2) * 0.1;
 
 #endif /* end of include guard: CONSTANTS_HPP */

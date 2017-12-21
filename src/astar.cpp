@@ -135,7 +135,7 @@ bool ASTAR_Step()
     for (int i = 0; i < 4; i++)
     {
       // check they not a wall or in the closed list
-      if ((MAP_GetData(&adj[i]) != WALL) && (isInClosedList(&adj[i]) == -1))
+      if (MAP_IsPassable(&adj[i]) && (isInClosedList(&adj[i]) == -1))
       {
         if (!MAP_CheckValidLocation(&adj[i])) printf("INVALID LOCATION!! x %f, y %f \r\n", adj[i].x, adj[i].y);
         int openPos = isInOpenList(&adj[i]);
@@ -282,7 +282,7 @@ void astar(Point* src, Point* dest)
     for (int i = 0; i < 4; i++)
     {
       // check they not a wall or in the closed list
-      if ((MAP_GetData(&adj[i]) != WALL) && (isInClosedList(&adj[i]) == -1))
+      if (MAP_IsPassable(&adj[i]) && (isInClosedList(&adj[i]) == -1))
       {
         if (!MAP_CheckValidLocation(&adj[i])) printf("INVALID LOCATION!! x %f, y %f \r\n", adj[i].x, adj[i].y);
         int openPos = isInOpenList(&adj[i]);

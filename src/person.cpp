@@ -17,6 +17,10 @@ const int DEFAULT_FOOD_DEPL = 1;
 const int DEFAULT_DRINK_DEPL = 1;
 const int DEFAULT_SLEEP_DEPL = 1;
 
+const int DRINK_RIVER_INCREASE = 25;
+const int EAT_FOOD_INCREASE = 25;
+const int SLEEP_BED_INCREASE = 25;
+
 Person::Person(): Moveable()
 {
   init();
@@ -56,17 +60,51 @@ void Person::tick(void)
       dead = true;
     }
 
-    if (drink < 950 && currentAction != TO_WATER)
+    if (drink < 950 && currentAction == WAIT)
     {
       currentAction = TO_WATER;
       Point tempDest((MAP_WIDTH / 2) - 2, y);
       ASTAR_Begin(this, &tempDest);
       while (!ASTAR_Step());
-    #ifdef PERSON_DEBUG
-      std::cout << "ASTAR Began" << std::endl;
-    #endif
+    // #ifdef PERSON_DEBUG
+    //   std::cout << "ASTAR Began" << std::endl;
+    // #endif
     }
-    else if (currentAction == TO_WATER)
+    else if (food < 600 && currentAction == WAIT)
+    {
+      currentAction = TO_FOOD;
+      Point tempDest = getNearestTile(FOOD);
+      if (tempDest.x != -1)
+      {
+        ASTAR_Begin(this, &tempDest);
+        while (!ASTAR_Step());
+
+      #ifdef PERSON_DEBUG
+        std::cout << "ASTAR Began - food" << std::endl;
+      #endif
+      
+      }
+    }
+    else if (sleep < 200 && currentAction == WAIT)
+    {
+      currentAction = TO_BED;
+      Point tempDest = getNearestTile(BED);
+      if (tempDest.x != -1)
+      {
+        ASTAR_Begin(this, &tempDest);
+        while (!ASTAR_Step());
+
+      #ifdef PERSON_DEBUG
+        std::cout << "ASTAR Began - bed" << std::endl;
+      #endif
+
+      }
+    }
+    else if (
+      currentAction == TO_WATER
+      || currentAction == TO_FOOD
+      || currentAction == TO_BED
+      )
     {
       Point nextPoint = ASTAR_PathNextPoint();
       if (nextPoint.x == -1) currentAction = WAIT;
@@ -92,8 +130,30 @@ void Person::tick(void)
     #endif
     }
 
+    if (nextTo(WATER))
+    {
+      drink += DRINK_RIVER_INCREASE;
+      if (drink > DEFAULT_DRINK_INIT) drink = DEFAULT_DRINK_INIT;
+    }
+
+    if (nextTo(FOOD))
+    {
+      food += EAT_FOOD_INCREASE;
+      if (food > DEFAULT_FOOD_INIT) food = DEFAULT_FOOD_INIT;
+    }
+
+    if (nextTo(BED))
+    {
+      sleep += SLEEP_BED_INCREASE;
+      if (sleep > DEFAULT_SLEEP_INIT) sleep = DEFAULT_SLEEP_INIT;
+    }
+
   #ifdef PERSON_DEBUG
-    std::cout << drink << std::endl;
+    std::cout 
+    << "Drink: " << drink 
+    << " | Food: " << food 
+    << " | Sleep: " << sleep 
+    << std::endl;
   #endif
   }
 }
