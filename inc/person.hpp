@@ -2,6 +2,7 @@
 #define PERSON_HPP
 
 #include "moveable.hpp"
+#include "astar.hpp"
 
 
 class Person: public Moveable {
@@ -26,6 +27,8 @@ private:
   int sleepDepRate;
 
   bool dead;
+
+  Astar _pathfinder;
 };
 
 #endif /* end of include guard: PERSON_HPP */

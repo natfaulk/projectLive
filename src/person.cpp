@@ -1,5 +1,4 @@
 #include "person.hpp"
-#include "astar.hpp"
 #include "constants.hpp"
 #include "map.hpp"
 
@@ -60,24 +59,24 @@ void Person::tick(void)
       dead = true;
     }
 
-    if (drink < 950 && currentAction == WAIT)
+    if (drink < 600 && currentAction == WAIT)
     {
       currentAction = TO_WATER;
       Point tempDest = getNearestTile(WATER);
-      ASTAR_Begin(this, &tempDest);
-      while (!ASTAR_Step());
+      _pathfinder.begin(this, &tempDest);
+      while (!_pathfinder.step());
     // #ifdef PERSON_DEBUG
     //   std::cout << "ASTAR Began" << std::endl;
     // #endif
     }
-    else if (food < 600 && currentAction == WAIT)
+    else if (food < 400 && currentAction == WAIT)
     {
       currentAction = TO_FOOD;
       Point tempDest = getNearestTile(FOOD);
       if (tempDest.x != -1)
       {
-        ASTAR_Begin(this, &tempDest);
-        while (!ASTAR_Step());
+        _pathfinder.begin(this, &tempDest);
+        while (!_pathfinder.step());
 
       #ifdef PERSON_DEBUG
         std::cout << "ASTAR Began - food" << std::endl;
@@ -91,8 +90,8 @@ void Person::tick(void)
       Point tempDest = getNearestTile(BED);
       if (tempDest.x != -1)
       {
-        ASTAR_Begin(this, &tempDest);
-        while (!ASTAR_Step());
+        _pathfinder.begin(this, &tempDest);
+        while (!_pathfinder.step());
 
       #ifdef PERSON_DEBUG
         std::cout << "ASTAR Began - bed" << std::endl;
@@ -106,7 +105,7 @@ void Person::tick(void)
       || currentAction == TO_BED
       )
     {
-      Point nextPoint = ASTAR_PathNextPoint();
+      Point nextPoint = _pathfinder.pathNextPoint();
       if (nextPoint.x == -1) currentAction = WAIT;
       else
       {
