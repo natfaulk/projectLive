@@ -53,6 +53,8 @@ int main(int argc, char const *argv[]) {
   // MAP_SetData(&dest, DEST);
 
   Person hero(10, 10);
+  Person hero2(20, 20);
+  Moveable player1(1, 1);
 
   while (window.isOpen())
   {
@@ -66,8 +68,14 @@ int main(int argc, char const *argv[]) {
             MAP_Clear();
             MAP_GenRandom();
             MAP_SetData(&hero, WALL);
+            MAP_SetData(&hero2, WALL);
+            MAP_SetData(&player1, WALL);            
             hero.setPos(10, 10);
+            hero2.setPos(20, 20);
+            player1.setPos(1, 1);
             hero.draw();
+            hero2.draw();
+            player1.draw();
 
             // xpos = UTIL_RandBetween(1, MAP_WIDTH - 2);
             // ypos = UTIL_RandBetween(1, MAP_HEIGHT - 2);
@@ -82,16 +90,16 @@ int main(int argc, char const *argv[]) {
             // MAP_SetData(&dest, DEST);
           }
           else if (event.key.code == sf::Keyboard::Up) {
-            hero.move(UP);
+            player1.move(UP);
           }
           else if (event.key.code == sf::Keyboard::Down) {
-            hero.move(DOWN);
+            player1.move(DOWN);
           }
           else if (event.key.code == sf::Keyboard::Left) {
-            hero.move(LEFT);
+            player1.move(LEFT);
           }
           else if (event.key.code == sf::Keyboard::Right) {
-            hero.move(RIGHT);
+            player1.move(RIGHT);
           }
         }
         
@@ -102,6 +110,7 @@ int main(int argc, char const *argv[]) {
     }
 
     hero.tick();
+    hero2.tick();
 
     // if (!testChk.value() && !done)
     // {
