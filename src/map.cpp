@@ -26,6 +26,7 @@ bool MAP_IsPassable(Point* _p)
   && (temp != WATER)
   && (temp != FOOD)
   && (temp != BED)
+  && (temp != MOVEABLE)
   ;
 }
 
