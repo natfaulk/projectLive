@@ -3,6 +3,7 @@
 
 #include "point.hpp"
 #include "constants.hpp"
+#include "camera.hpp"
 
 #include <SFML/Graphics.hpp>
 
@@ -14,7 +15,7 @@ bool MAP_CheckValidLocation(Point *p);
 void MAP_Gen(void);
 void MAP_GenRandom(void);
 // void MAP_Print(void);
-void MAP_Draw(sf::RenderWindow &window);
+void MAP_Draw(sf::RenderWindow &window, Camera* cam);
 void MAP_Clear(void);
 
 #endif /* end of include guard: MAP_HPP */

@@ -55,6 +55,8 @@ int main(int argc, char const *argv[]) {
   Person hero(10, 10);
   Person hero2(20, 20);
   Moveable player1(1, 1);
+  Camera myCam;
+  myCam.attachToObject(&player1);
 
   while (window.isOpen())
   {
@@ -154,7 +156,7 @@ int main(int argc, char const *argv[]) {
     //   window.display();
     // }
 
-    MAP_Draw(window);
+    MAP_Draw(window, &myCam);
     // testChk.draw(window, font);
     window.display();
 

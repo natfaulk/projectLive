@@ -3,8 +3,15 @@
 
 #include <SFML/Graphics/Color.hpp>
 
-const int MAP_WIDTH = 65;
-const int MAP_HEIGHT = 40;
+const int MAP_WIDTH = 200;
+const int MAP_HEIGHT = 200;
+
+// ----------------------------------------------------------------------------
+// Camera
+// ----------------------------------------------------------------------------
+const int CAMERA_HYSTERESIS = 5;    // how close to edge of screen before camera moves
+const int CAMERA_WIDTH = 65;
+const int CAMERA_HEIGHT = 40;
 
 // ----------------------------------------------------------------------------
 // Graphics
@@ -39,8 +46,8 @@ enum MapTiles {
 // SFML Graphics
 // ----------------------------------------------------------------------------
 const int TILE_SIZE = 25;
-const int SCREEN_WIDTH = MAP_WIDTH * TILE_SIZE;
-const int SCREEN_HEIGHT= MAP_HEIGHT * TILE_SIZE;
+const int SCREEN_WIDTH = CAMERA_WIDTH * TILE_SIZE;
+const int SCREEN_HEIGHT= CAMERA_HEIGHT * TILE_SIZE;
 const char* const WINDOW_TITLE = "A STAR SFML";
 
 const sf::Color FLOOR_COLOR = sf::Color::White;

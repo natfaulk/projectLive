@@ -133,15 +133,16 @@ void addOuterWalls(void)
   // }
 }
 
-void MAP_Draw(sf::RenderWindow &window)
+void MAP_Draw(sf::RenderWindow &window, Camera* cam)
 {
-  for (int y = 0; y < MAP_HEIGHT; y++)
+  Point camPos = cam->getPos();
+  for (int y = camPos.y; y < camPos.y + cam->_h; y++)
   {
-    for (int x = 0; x < MAP_WIDTH; x++)
+    for (int x = camPos.x; x < camPos.x + cam->_w; x++)
     {
       sf::RectangleShape rectangle(sf::Vector2f(TILE_SIZE, TILE_SIZE));
       rectangle.setFillColor(* MapTileColors[map[x][y]]);
-      rectangle.setPosition(sf::Vector2f(x * TILE_SIZE, y * TILE_SIZE));
+      rectangle.setPosition(sf::Vector2f((x - camPos.x) * TILE_SIZE, (y - camPos.y) * TILE_SIZE));
       window.draw(rectangle);
     }
   }
