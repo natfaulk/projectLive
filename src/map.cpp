@@ -4,6 +4,9 @@
 #include <iostream>
 #include <cstdlib> // for rand
 
+#include <fstream> // for saving maps to file
+#include <string>
+
 static MapTiles map[MAP_WIDTH][MAP_HEIGHT] = {{FLOOR}};
 
 void addOuterWalls(void);
@@ -146,6 +149,31 @@ void MAP_Draw(sf::RenderWindow &window, Camera* cam)
       window.draw(rectangle);
     }
   }
+}
+
+void MAP_SaveToFile(const char* _file)
+{ 
+  std::string tempFile("maps/");
+  tempFile += _file;
+
+  std::ofstream mapOutput;
+  mapOutput.open(tempFile.c_str());
+
+  mapOutput << "MAPSAVE\n";
+  mapOutput << "W:" << MAP_WIDTH;
+  mapOutput << "\nH:" << MAP_WIDTH;
+  mapOutput << "\nBEGIN DATA\n";
+  
+  for (int y = 0; y < MAP_HEIGHT; y++)
+  {
+    for (int x = 0; x < MAP_WIDTH; x++)
+    {
+      mapOutput << map[x][y];
+    }
+  }
+
+  mapOutput << "\nEND DATA\n";  
+  mapOutput.close();
 }
 
 // void MAP_Print(void)

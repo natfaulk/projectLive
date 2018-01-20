@@ -52,6 +52,12 @@ int main(int argc, char const *argv[]) {
   // MAP_SetData(&src, SRC);
   // MAP_SetData(&dest, DEST);
 
+  if (!UTIL_DirectoryExists("maps"))
+  {
+    UTIL_Mkdir("maps");
+  }
+  MAP_SaveToFile("test.mapsav");
+
   Person hero(10, 10);
   Person hero2(20, 20);
   Moveable player1(1, 1);

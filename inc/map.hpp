@@ -18,4 +18,6 @@ void MAP_GenRandom(void);
 void MAP_Draw(sf::RenderWindow &window, Camera* cam);
 void MAP_Clear(void);
 
+void MAP_SaveToFile(const char* _file);
+
 #endif /* end of include guard: MAP_HPP */
